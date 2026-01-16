@@ -20,24 +20,28 @@ class MoneyTransferTest {
 
         var firstCard = DataHelper.getFirstCard();
         var secondCard = DataHelper.getSecondCard();
-        int amount = 1000;
 
-        int firstBalance = dashboard.getCardBalance(firstCard.getLast4Digits());
-        int secondBalance = dashboard.getCardBalance(secondCard.getLast4Digits());
 
-        // Переводим со второй карты на первую
-        var transferPage = dashboard.selectCardToTransfer(firstCard.getLast4Digits());
+
+        int firstBalance = dashboard.getCardBalance(firstCard.getMaskedNumber());
+
+        int secondBalance = dashboard.getCardBalance(secondCard.getMaskedNumber());
+        int amount = DataHelper.getTransferAmount(firstBalance);
+
+        var transferPage = dashboard.selectCardToTransfer(firstCard.getMaskedNumber());
+
         dashboard = transferPage.makeTransfer(amount, secondCard.getNumber());
 
         assertEquals(
                 firstBalance + amount,
-                dashboard.getCardBalance(firstCard.getLast4Digits())
+                dashboard.getCardBalance(DataHelper.getLast4Digits(firstCard))
         );
 
         assertEquals(
                 secondBalance - amount,
-                dashboard.getCardBalance(secondCard.getLast4Digits())
+                dashboard.getCardBalance(DataHelper.getLast4Digits(secondCard))
         );
     }
 }
+
 

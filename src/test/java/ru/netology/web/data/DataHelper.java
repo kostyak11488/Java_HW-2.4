@@ -3,7 +3,8 @@ package ru.netology.web.data;
 import lombok.Value;
 
 public class DataHelper {
-    private DataHelper() {}
+    private DataHelper() {
+    }
 
     @Value
     public static class AuthInfo {
@@ -28,8 +29,8 @@ public class DataHelper {
     public static class CardInfo {
         String number;
 
-        public String getLast4Digits() {
-            return number.substring(number.length() - 4);
+        public String getMaskedNumber() {
+            return "**** **** **** " + number.substring(number.length() - 4);
         }
     }
 
@@ -40,5 +41,15 @@ public class DataHelper {
     public static CardInfo getSecondCard() {
         return new CardInfo("5559 0000 0000 0002");
     }
+
+
+    public static String getLast4Digits(CardInfo card) {
+        return card.getNumber().substring(card.getNumber().length() - 4);
+    }
+    public static int getTransferAmount(int balance) {
+        // Возьмём половину баланса для перевода
+        return balance / 2;
+    }
+
 }
 

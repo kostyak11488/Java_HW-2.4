@@ -7,12 +7,13 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class DashboardPage {
 
-    private ElementsCollection cards = $$("div[data-test-id]");
+    // Ищем ТОЛЬКО карточки (div с кнопкой "Пополнить")
+    private ElementsCollection cards = $$("div[data-test-id]")
+            .filterBy(Condition.exist);
 
     // Получение баланса по последним 4 цифрам карты
-    public int getCardBalance(String last4Digits) {
-        // Используем просто text(...) — ищет подстроку
-        String cardText = cards.findBy(Condition.text(last4Digits)).getText();
+    public int getCardBalance(String maskedNumber) {
+        String cardText = cards.findBy(Condition.text(maskedNumber)).getText();
         return extractBalance(cardText);
     }
 
@@ -32,6 +33,7 @@ public class DashboardPage {
         return new TransferPage();
     }
 }
+
 
 
 
