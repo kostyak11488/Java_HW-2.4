@@ -28,10 +28,6 @@ public class DataHelper {
     @Value
     public static class CardInfo {
         String number;
-
-        public String getMaskedNumber() {
-            return "**** **** **** " + number.substring(number.length() - 4);
-        }
     }
 
     public static CardInfo getFirstCard() {
@@ -50,6 +46,10 @@ public class DataHelper {
         // Возьмём половину баланса для перевода
         return balance / 2;
     }
+    public static String getMaskedNumber(CardInfo card) {
+        return "**** **** **** " + card.getNumber().substring(card.getNumber().length() - 4);
+    }
+
 
 }
 

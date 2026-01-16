@@ -21,14 +21,12 @@ class MoneyTransferTest {
         var firstCard = DataHelper.getFirstCard();
         var secondCard = DataHelper.getSecondCard();
 
+        int firstBalance = dashboard.getCardBalance(DataHelper.getMaskedNumber(firstCard));
+        int secondBalance = dashboard.getCardBalance(DataHelper.getMaskedNumber(secondCard));
 
-
-        int firstBalance = dashboard.getCardBalance(firstCard.getMaskedNumber());
-
-        int secondBalance = dashboard.getCardBalance(secondCard.getMaskedNumber());
         int amount = DataHelper.getTransferAmount(firstBalance);
 
-        var transferPage = dashboard.selectCardToTransfer(firstCard.getMaskedNumber());
+        var transferPage = dashboard.selectCardToTransfer(DataHelper.getMaskedNumber(firstCard));
 
         dashboard = transferPage.makeTransfer(amount, secondCard.getNumber());
 
